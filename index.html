@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>CDP Segmentation</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <main class="card">
+    <h1>Segmentation</h1>
+    <p class="subtitle">Create and manage customer segments.</p>
+
+    <!-- Source Table -->
+    <div class="form-row">
+      <label for="sourceTable">Source Table</label>
+      <input
+        type="text"
+        id="sourceTable"
+        placeholder="(e.g. UNIFIED_CUSTOMERS)"
+      />
+    </div>
+
+    <!-- Review Segments -->
+    <h2>Review Segments</h2>
+    <p class="helper">Do you want to preview the previous segment data?</p>
+    <fieldset class="radio-group">
+      <label><input type="radio" name="previewChoice" value="No"> No</label>
+      <label><input type="radio" name="previewChoice" value="Yes"> Yes</label>
+    </fieldset>
+    <p class="validation-msg hidden" id="previewValidation">
+      &nbsp;← Please choose an option
+    </p>
+
+    <!-- Preview Section (shows on “Yes”) -->
+    <section id="previewSection" class="hidden">
+      <div class="form-row input-arrow">
+        <label for="segmentDropdown">Select Segment</label>
+        <select id="segmentDropdown">
+          <option value="" disabled selected>Select existing segment…</option>
+          <option value="high_value_customers">High Value Customers</option>
+          <option value="inactive_90_days">Inactive 90 Days</option>
+          <option value="loyalty_members">Loyalty Members</option>
+        </select>
+      </div>
+    </section>
+
+    <!-- Create Segments (shows on “No”) -->
+    <section id="createSection" class="hidden">
+      <h2>Create Segments</h2>
+
+      <div class="form-row">
+        <label>Number of Filters</label>
+        <div class="counter">
+          <button id="minusBtn" aria-label="decrease filters">−</button>
+          <input type="text" id="filterCount" value="0" readonly>
+          <button id="plusBtn" aria-label="increase filters">+</button>
+        </div>
+      </div>
+
+      <!-- Filters injected by JS will follow this structure -->
+      <div id="filtersContainer" class="filters-container">
+        <!-- Example static filter row -->
+        <div class="filter">
+          <div class="filter-header">Filter 1</div>
+          <div class="filters-inline">
+            <div class="form-row input-arrow autocomplete-wrapper input-arrow" style="flex:1;">
+              <label>Attribute</label>
+              <input type="text" class="attrInput"
+                     placeholder="Select attribute" autocomplete="off">
+            </div>
+            <div class="form-row input-arrow autocomplete-wrapper input-arrow" style="flex:1;">
+              <label>Condition</label>
+              <input type="text" 
+              class="opInput"
+              placeholder="Choose Condition" autocomplete="off">
+            </div>
+            <div class="form-row" style="flex:1;">
+              <label>Value</label>
+              <input type="text" class="valInput" placeholder="Enter value">
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="form-row">
+        <label for="segmentName">Segment Name</label>
+        <input type="text" id="segmentName" placeholder="Enter a segment name">
+      </div>
+
+      <div class="form-row">
+        <label for="segmentDesc">Description</label>
+        <textarea id="segmentDesc" placeholder="Describe this segment (optional)"></textarea>
+      </div>
+
+      <div class="form-row">
+        <label for="sourceDisplay">Source (DB.Schema.Table)</label>
+        <input type="text" id="sourceDisplay"
+               placeholder="e.g. CDP_DB.CDP_SCHEMA.UNIFIED_CUSTOMERS">
+      </div>
+
+      <!-- 🔽 NEW: Target Snowflake Table field (add this) -->
+     <div class="form-row">
+      <label for="targetTable">Target Snowflake Table</label>
+      <input type="text"
+      id="targetTable">
+  </div>
+      <div id="statsBox" class="stats hidden">
+        <span>Initial Records: <strong id="statInitial">0</strong></span>
+        <span>Current Records (after filters): <strong id="statCurrent">—</strong></span>
+      </div>
+
+      <button id="saveBtn" class="btn-primary">Save Segment</button>
+    </section>
+  </main>
+
+  <!-- Autocomplete option pools (still useful for list constants in JS) -->
+  <datalist id="attrOptions">
+    <option value="Group_Id">
+    <option value="Customer_Id">
+    <option value="First_Name">
+    <option value="Last_Name">
+    <option value="Total_Purchases">
+    <option value="Last Purchase Date">
+    <option value="Avg_Order_Value">
+    <option value="Avg_Time_Between_Purchases">
+    <option value="Loyalty_Members">
+    <option value="Loyalty_Tier">
+    <option value="Subscription_Status">
+    <option value="Most_Preferred_Product">
+    <option value="Gender">
+    <option value="Country">
+    <option value="Lifetime Value">
+  </datalist>
+
+  <datalist id="opOptions">
+    <option value="Equals">
+    <option value="Not Equals">
+    <option value="Contains">
+    <option value="Starts With">
+    <option value="Ends With">
+    <option value="Is In">
+    <option value="Is Not in">
+    <option value="Is Null">
+    <option value="Greater Than">
+    <option value="Less Than">
+  </datalist>
+
+<!-- Loading overlay -->
+<div id="loadingOverlay" class="loading-overlay hidden">
+<div class="loader splitter">
+  <span></span><span></span><span></span><span></span>
+</div>
+<p>Segmenting your data…</p>
+</div>
+
+<!-- Success popup -->
+<div id="successModal" class="modal hidden">
+  <div class="modal-content">
+    <h3>✅ Segment has been successfully Created and Saved!</h3>
+    <button id="okBtn" class="btn-primary">OK</button>
+  </div>
+</div>
+
+  <script src="script.js"></script>
+</body>
+</html>

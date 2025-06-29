@@ -1,0 +1,241 @@
+/* =======================  style.css  ======================= */
+:root{
+  --primary-blue:#0066cc;
+  --grey-bg:#f5f7fa;
+  --grey-border:#d9dfe7;
+  --text-dark:#1a1a1a;
+  --radius:8px;
+}
+
+/* ---- Layout ---- */
+html,body{
+  margin:0;padding:0;height:100%;
+  font-family:"Segoe UI",sans-serif;
+  background:var(--grey-bg);color:var(--text-dark);line-height:1.45;
+}
+.card{
+  background:#fff;border:1px solid var(--grey-border);border-radius:var(--radius);
+  padding:32px;max-width:960px;margin:40px auto;
+  box-shadow:0 4px 8px rgba(0,0,0,.05);
+}
+.subtitle{margin:0 0 24px;font-size:15px;color:#444;}
+h1{margin:0 0 8px;font-size:30px;display:flex;align-items:center;gap:8px;}
+h2{margin:32px 0 12px;font-size:22px;border-bottom:1px solid var(--grey-border);padding-bottom:6px;}
+
+/* ---- Form basics ---- */
+.form-row{margin-bottom:20px;}
+label{display:block;font-weight:600;margin-bottom:6px;font-size:14px;}
+
+input[type="text"],
+textarea,
+select{
+  width:100%;padding:11px 14px;
+  border:1px solid var(--grey-border);border-radius:var(--radius);
+  background:#fbfcfe;font-size:15px;box-sizing:border-box;
+}
+textarea{min-height:90px;resize:vertical;}
+
+/* ---- Radios ---- */
+fieldset{border:none;padding:0;margin:0;}
+.radio-group{display:flex;gap:32px;align-items:center;margin:10px 0;font-size:15px;}
+.radio-group input{margin-right:6px;cursor:pointer;}
+.validation-msg{color:#d00;font-size:14px;margin:0;}
+
+/* ---- Info banner ---- */
+.loaded-banner{
+  background:#e8f7ed;color:#118a2f;border:1px solid #b7e1c0;
+  border-radius:var(--radius);padding:14px 18px;font-size:14px;
+  display:flex;align-items:center;gap:6px;margin-bottom:16px;
+}
+
+/* ---- Counter ---- */
+.counter{
+  display:inline-flex;align-items:center;border:1px solid var(--grey-border);
+  border-radius:var(--radius);overflow:hidden;
+}
+.counter button{
+  background:none;border:none;font-size:22px;line-height:1;
+  padding:6px 14px;cursor:pointer;color:var(--primary-blue);
+}
+.counter input{width:60px;text-align:center;border:none;font-size:16px;background:#fff;}
+
+/* ---- Buttons ---- */
+.btn-primary{
+  background:var(--primary-blue);color:#fff;border:none;border-radius:var(--radius);
+  padding:13px 26px;font-size:16px;cursor:pointer;transition:background .2s;margin-top:10px;
+}
+.btn-primary:hover{background:#0057b0;}
+
+/* ---- Filters ---- */
+.filters-container .filter{
+  border:1px solid var(--grey-border);border-radius:var(--radius);
+  padding:18px;margin-bottom:14px;background:#fafbfc;
+}
+.filter-header{font-weight:600;margin-bottom:10px;color:#333;}
+.filters-inline{display:flex;gap:12px;}
+
+/* ---- Stats ---- */
+.stats{
+  display:flex;gap:24px;align-items:center;
+  background:#eef2f7;border:1px dashed var(--grey-border);
+  border-radius:var(--radius);padding:11px 16px;font-size:14px;margin-top:18px;
+}
+
+/* ============================================================
+   <select> enhancements (blue chevron)
+   ============================================================ */
+select{
+  width:100%;padding:10px 40px 10px 14px;
+  border:1px solid var(--grey-border);border-radius:var(--radius);
+  font-size:15px;color:var(--text-dark);
+  background:
+    linear-gradient(180deg,#fff 0%,#f7f9fc 100%) padding-box,
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='8' viewBox='0 0 14 8'%3E%3Cpath d='M1 1l6 6 6-6' fill='none' stroke='%230066cc' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E")
+    no-repeat right 14px center/14px 8px;
+  appearance:none;cursor:pointer;transition:border-color .2s,box-shadow .2s;
+}
+select:hover{border-color:var(--primary-blue);}
+select:focus{border-color:var(--primary-blue);box-shadow:0 0 0 3px rgba(0,102,204,.25);outline:none;}
+
+/* ============================================================
+   Attribute / Condition inputs (base styling)
+   ============================================================ */
+.autocomplete-wrapper{position:relative;}
+
+.autocomplete-wrapper input[type="text"]{
+  padding:10px 14px;
+  border:1px solid var(--grey-border);border-radius:var(--radius);
+  font-size:15px;color:var(--text-dark);
+  background:linear-gradient(180deg,#fff 0%,#f7f9fc 100%) padding-box;
+  transition:border-color .2s,box-shadow .2s;
+}
+.autocomplete-wrapper input[type="text"]:hover{border-color:var(--primary-blue);}
+.autocomplete-wrapper input[type="text"]:focus{border-color:var(--primary-blue);box-shadow:0 0 0 3px rgba(0,102,204,.25);outline:none;}
+
+/* ============================================================
+   ▼ SINGLE outline chevron 
+   ============================================================ */
+.input-arrow{position:relative;}
+.input-arrow > input[type="text"]{padding-right:48px;}          /* room for arrow */
+
+.input-arrow::after{
+  content:'';
+  position:absolute;
+  right:16px;top:60%;transform:translateY(-50%) rotate(45deg);
+  width:8px;height:8px;                 /* arrow size */
+
+  /* outline chevron: only right + bottom borders */
+  border:2px solid #555;
+  border-width:0 2px 2px 0;
+  pointer-events:auto;
+  cursor: pointer;
+}
+
+
+.input-arrow::after {
+  /* …arrow styling… */
+  pointer-events: auto;      /* keep this if you want it clickable */
+}
+
+.input-arrow > input[type="text"] {
+  padding-right: 48px;
+}
+
+.input-arrow::after {
+  content: '';
+  position: absolute;
+  right: 16px;
+  top: 60%;
+  transform: translateY(-50%) rotate(45deg);
+  width: 8px;
+  height: 8px;
+  border: 2px solid #555;
+  border-width: 0 2px 2px 0;
+  pointer-events: auto;
+  cursor: pointer;
+}
+
+
+/* ============================================================
+   Custom autocomplete dropdown
+   ============================================================ */
+.autocomplete-list{
+  position:absolute;left:0;right:0;top:calc(100% + 4px);
+  z-index:1000;max-height:200px;overflow-y:auto;
+  background:#fff;border:1px solid var(--grey-border);border-radius:var(--radius);
+  box-shadow:0 6px 14px rgba(0,0,0,.08);
+  opacity:0;animation:dropdownFade .12s ease-out forwards;
+}
+@keyframes dropdownFade{
+  from{transform:translateY(-4px);opacity:0;}
+  to{transform:translateY(0);opacity:1;}
+}
+.autocomplete-list{scrollbar-width:thin;scrollbar-color:var(--grey-border) transparent;}
+.autocomplete-list::-webkit-scrollbar{width:6px;}
+.autocomplete-list::-webkit-scrollbar-thumb{background:var(--grey-border);border-radius:3px;}
+
+.autocomplete-item{
+  padding:10px 14px;font-size:14px;cursor:pointer;
+}
+.autocomplete-item + .autocomplete-item{border-top:1px solid #f1f4f9;}
+.autocomplete-item:hover{background:#f0f6ff;color:var(--primary-blue);font-weight:600;}
+
+
+/* ---------- full‑screen loading overlay ---------- */
+.loading-overlay {
+  position: fixed; inset: 0; z-index: 2000;
+  background: rgba(255,255,255,0.92);
+  display: flex; flex-direction: column;
+  align-items: center; justify-content: center;
+}
+
+.loading-overlay p { margin-top: 18px; font-size: 18px; color: var(--text-dark); }
+
+/* colorful 4‑dot wave loader */
+.loader { display: flex; gap: 8px; }
+.loader span {
+  width: 14px; height: 14px; border-radius: 50%;
+  background: var(--primary-blue);
+  animation: bounce 0.8s infinite alternate;
+}
+.loader span:nth-child(2){ animation-delay: 0.15s; background:#00aaff; }
+.loader span:nth-child(3){ animation-delay: 0.3s;  background:#00cc99; }
+.loader span:nth-child(4){ animation-delay: 0.45s; background:#ffaa00; }
+
+@keyframes bounce { from { transform: translateY(0); } to { transform: translateY(-10px); } }
+
+/* ---------- modal popup ---------- */
+.modal {
+  position: fixed; inset: 0; z-index: 2100;
+  background: rgba(0,0,0,0.45);
+  display: flex; align-items: center; justify-content: center;
+}
+.modal-content {
+  background: #fff; padding: 28px 32px;
+  border-radius: var(--radius); text-align: center;
+  box-shadow: 0 6px 20px rgba(0,0,0,0.2);
+  max-width: 320px; width: 90%;
+}
+.modal-content h3 { margin-top: 0; margin-bottom: 12px; }
+.modal-content p  { margin: 0 0 18px; font-size: 15px; }
+
+/* ---------- “Data‑segmenting” loader ---------- */
+.loader.splitter { display: flex; flex-direction: column; gap: 6px; }
+.loader.splitter span {
+  width: 64px; height: 10px;
+  background: var(--primary-blue);
+  border-radius: 4px;
+  animation: slice 1s ease-in-out infinite;
+}
+.loader.splitter span:nth-child(2){ animation-delay: 0.15s; }
+.loader.splitter span:nth-child(3){ animation-delay: 0.30s; }
+.loader.splitter span:nth-child(4){ animation-delay: 0.45s; }
+
+@keyframes slice {
+  0%, 100%   { transform: translateX(0);            opacity: 1; }
+  25%        { transform: translateX(12px);         opacity: 0.85; }
+  50%        { transform: translateX(-12px);        opacity: 0.85; }
+  75%        { transform: translateX(0);            opacity: 1; }
+}
+/* ---- Utility ---- */
+.hidden{display:none;}
